@@ -8,7 +8,7 @@ const CalendarDatePickerCs = () => {
   const [state, setState] = useState([
     {
       startDate: new Date(),
-      endDate: new Date(),
+      endDate: null,
       key: "selection",
     },
   ]);
@@ -34,6 +34,9 @@ const CalendarDatePickerCs = () => {
       momentsSDK.close();
     });
   };
+
+  console.log("==========", state);
+
   return (
     <section>
       <div className="cs_container text_center">
@@ -41,16 +44,13 @@ const CalendarDatePickerCs = () => {
         <hr />
         <div className="cs_date_picker_card">
           <DateRange
-            onChange={(item) => setState([item.selection])}
             showSelectionPreview={true}
-            moveRangeOnFirstSelection={true}
             months={1}
-            ranges={state}
             direction={screenSize > 768 ? "horizontal" : "vertical"}
             preventSnapRefocus={true}
             calendarFocus="backwards"
-            minDate={addDays(new Date(), 3)}
-            // maxDate={addDays(new Date(), 3)}
+            // minDate={addDays(new Date(), 3)}
+            // // maxDate={addDays(new Date(), 3)}
             rangeColors={["#335D65"]}
             color={"#335D65"}
             disabledDates={[
@@ -58,6 +58,10 @@ const CalendarDatePickerCs = () => {
               new Date("april 29 2022"),
               addDays(new Date(), 14),
             ]}
+            editableDateInputs={true}
+            onChange={(item) => setState([item.selection])}
+            moveRangeOnFirstSelection={false}
+            ranges={state}
           />
           <div className="cs_row justify_content_end">
             <button className="cs_btn_main" onClick={getDatePick}>
